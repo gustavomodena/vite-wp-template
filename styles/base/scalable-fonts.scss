@@ -1,0 +1,23 @@
+﻿@use "sass:math";
+
+$base-font-size: 16 !default;
+$scale-from-viewport-size: 1920 !default;
+$scale-stop-viewport-size: 3840 !default;
+
+$-min-font-size: $base-font-size * 1px;
+$-viewport-relative-font-size: calc($base-font-size / $scale-from-viewport-size) *
+  100vw;
+$-max-font-size: $base-font-size *
+  calc($scale-stop-viewport-size / $scale-from-viewport-size) * 1px;
+
+@mixin for-root() {
+  font-size: $-min-font-size;
+
+  @media (min-width: #{$scale-from-viewport-size * 1px}) {
+    font-size: clamp(
+      $-min-font-size,
+      $-viewport-relative-font-size,
+      $-max-font-size
+    );
+  }
+}
